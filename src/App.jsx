@@ -1,32 +1,40 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { resource } from './db/data'
 import './App.css'
+import AudioPlayer from './components/AudioPlayer'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState(resource)
+  const [index, setIndex] = useState(1)
+
+  const handleNext = () => {
+    index === data?.length ? setIndex(1)
+      : setIndex(index + 1)
+  }
+  console.log("render app")
+  const handlePrev = () => {
+    index === 1 ? setIndex(data?.length)
+      : setIndex(index - 1)
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App nes-container is-dark with-title">
+
+      <picture className='image-container'>
+        <img
+          src={`/${index}.gif`}
+          allowFullScreen />
+
+        <div className="btn-container">
+          <button className='btn-prev' onClick={handlePrev}>Anterior</button>
+          <button className='btn-next' onClick={handleNext}>Siguiente</button>
+        </div>
+      </picture>
+
+
+      <div className="controllers">
+        <AudioPlayer audioUrl={data[index]?.url} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }

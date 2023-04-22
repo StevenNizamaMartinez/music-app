@@ -1,0 +1,13 @@
+.audio-player-progress{
+  width: 100%;
+  height: 10px;
+  background: #ddd;
+  border-radius: 5px;
+  outline: none;
+}
+
+.audio-player-progress::-webkit-slider-thumb {
+  width: 10px;
+  height: 10px;
+  display: none;
+}
